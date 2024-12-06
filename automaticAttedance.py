@@ -10,6 +10,7 @@ import datetime
 import time
 import tkinter.ttk as tkk
 import tkinter.font as font
+import time
 
 haarcasecade_path = "haarcascade_frontalface_default.xml"
 trainimagelabel_path = (
@@ -184,6 +185,88 @@ def subjectChoose(text_to_speech):
                 f = "No Face found for attendance"
                 text_to_speech(f)
                 cv2.destroyAllWindows()
+    
+    # def FillAttendance():
+    #     now = time.time()
+    #     future = now + 20
+    #     print(now)
+    #     print(future)
+
+    #     # Đặt tên file mặc định với ngày hiện tại
+    #     ts = time.time()
+    #     date = datetime.datetime.fromtimestamp(ts).strftime("%Y-%m-%d")
+    #     file_name = f"attendance_{date}.xlsx"  # Lưu dưới dạng file Excel
+
+    #     try:
+    #         recognizer = cv2.face.LBPHFaceRecognizer_create()
+    #         try:
+    #             recognizer.read(trainimagelabel_path)
+    #         except:
+    #             e = "Model not found, please train model"
+    #             Notifica.configure(
+    #                 text=e,
+    #                 bg="black",
+    #                 fg="yellow",
+    #                 width=33,
+    #                 font=("times", 15, "bold"),
+    #             )
+    #             Notifica.place(x=20, y=250)
+    #             text_to_speech(e)
+    #             return
+
+    #         facecasCade = cv2.CascadeClassifier(haarcasecade_path)
+    #         df = pd.read_csv(studentdetail_path)
+    #         cam = cv2.VideoCapture(0)
+    #         font = cv2.FONT_HERSHEY_SIMPLEX
+    #         col_names = ["Enrollment", "Name"]
+    #         attendance = pd.DataFrame(columns=col_names)
+
+    #         while True:
+    #             ___, im = cam.read()
+    #             gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+    #             faces = facecasCade.detectMultiScale(gray, 1.2, 5)
+
+    #             for (x, y, w, h) in faces:
+    #                 Id, conf = recognizer.predict(gray[y:y+h, x:x+w])
+    #                 if conf < 70:
+    #                     name = df.loc[df["Enrollment"] == Id]["Name"].values[0]
+    #                     attendance.loc[len(attendance)] = [Id, name]
+    #                     cv2.rectangle(im, (x, y), (x + w, y + h), (0, 260, 0), 4)
+    #                     cv2.putText(im, f"{Id}-{name}", (x + h, y), font, 1, (255, 255, 0), 4)
+    #                 else:
+    #                     cv2.rectangle(im, (x, y), (x + w, y + h), (0, 25, 255), 7)
+    #                     cv2.putText(im, "Unknown", (x + h, y), font, 1, (0, 25, 255), 4)
+
+    #             if time.time() > future:
+    #                 break
+
+    #             cv2.imshow("Filling Attendance...", im)
+    #             if cv2.waitKey(30) & 0xFF == 27:  # Press 'Esc' to exit
+    #                 break
+
+    #         attendance = attendance.drop_duplicates(["Enrollment"], keep="first")
+    #         attendance.to_excel(file_name, index=False)  # Lưu file Excel
+    #         print(f"Attendance saved as: {file_name}")
+
+    #         m = f"Attendance Filled Successfully and saved as {file_name}"
+    #         Notifica.configure(
+    #             text=m,
+    #             bg="black",
+    #             fg="yellow",
+    #             width=33,
+    #             relief=RIDGE,
+    #             bd=5,
+    #             font=("times", 15, "bold"),
+    #         )
+    #         text_to_speech(m)
+
+    #         cam.release()
+    #         cv2.destroyAllWindows()
+    #     except Exception as e:
+    #         print("Error:", e)
+    #         f = "No Face found for attendance"
+    #         text_to_speech(f)
+    #         cv2.destroyAllWindows()
 
     ###windo is frame for subject chooser
     subject = Tk()
